@@ -11,8 +11,8 @@ services:
       context: ./frontend
 
     container_name: 9ts_frontend_prod
-    ports:
-      - ${FRONTEND_PORT}:80
+    # ports:
+    #   - ${FRONTEND_PORT}:80
     networks:
       - backend-frontend
 

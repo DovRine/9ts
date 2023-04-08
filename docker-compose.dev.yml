@@ -23,6 +23,8 @@ services:
       dockerfile: docker/Dockerfile.dev
       context: ./frontend
     container_name: 9ts_frontend_dev
+    ports:
+      - ${FRONTEND_PORT}:80
     volumes:
       - ./frontend:/usr/src/app
 

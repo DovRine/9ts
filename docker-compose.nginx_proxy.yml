@@ -1,0 +1,45 @@
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - nginx_proxy_certs:/etc/nginx/certs
+      - nginx_proxy_vhost.d:/etc/nginx/vhost.d
+      - nginx_proxy_html:/usr/share/nginx/html
+
+  nginx-proxy-letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-letsencrypt
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - nginx_proxy_certs:/etc/nginx/certs
+      - nginx_proxy_vhost.d:/etc/nginx/vhost.d
+      - nginx_proxy_html:/usr/share/nginx/html
+    environment:
+      - DEFAULT_EMAIL=events@uch1.com
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+
+  nginx-proxy-tools:
+    image: ubuntu:20.04
+    container_name: nginx-proxy-tools
+    volumes:
+      - nginx_proxy_certs:/data/volumes/nginx_proxy_certs
+      - nginx_proxy_vhost.d:/data/volumes/nginx_proxy_vhost.d
+      - nginx_proxy_html:/data/volumes/nginx_proxy_html
+    command: tail -f /dev/null
+
+  frontend:
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=club9ts.rine.us
+      - LETSENCRYPT_HOST=club9ts.rine.us
+
+volumes:
+  nginx_proxy_certs:
+  nginx_proxy_vhost.d:
+  nginx_proxy_html:
