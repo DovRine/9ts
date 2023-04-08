@@ -21,6 +21,7 @@ services:
       - backend
     networks:
       - backend-frontend
+      - nginx-proxy
 
   backend:
     env_file:
@@ -68,6 +69,7 @@ services:
 networks:
   backend-frontend:
   backend-mongo:
+  nginx-proxy:
 
 
 volumes:
