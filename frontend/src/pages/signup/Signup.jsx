@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import "./Signup.css"
+import { getApiUrl } from "../../lib/getApiUrl";
 
 
 
@@ -13,7 +14,7 @@ function Signup() {
     async function handleSubmit(e) {
         e.preventDefault();
         console.log(name, email, password);
-        const res = await fetch("http://localhost:5000/signup", {
+        const res = await fetch(`${getApiUrl()}/signup`, {
           method: "POST",
           crossDomain: true,
           headers: {

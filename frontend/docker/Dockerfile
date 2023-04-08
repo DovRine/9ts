@@ -9,7 +9,11 @@ FROM node:18.15.0-bullseye
 
 WORKDIR /usr/src/app
 ARG NODE_ENV
+ARG REACT_APP_BACKEND_PORT
+
 ENV NODE_ENV ${NODE_ENV}
+ENV REACT_APP_BACKEND_PORT ${REACT_APP_BACKEND_PORT}
+
 RUN npm install -g serve
 COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
 COPY --chown=node:node --from=build /usr/src/app/node_modules /usr/src/app/node_modules

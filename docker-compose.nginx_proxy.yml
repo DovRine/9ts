@@ -1,3 +1,4 @@
+version: '3'
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -31,13 +32,6 @@ services:
       - nginx_proxy_vhost.d:/data/volumes/nginx_proxy_vhost.d
       - nginx_proxy_html:/data/volumes/nginx_proxy_html
     command: tail -f /dev/null
-
-  frontend:
-    expose:
-      - 80
-    environment:
-      - VIRTUAL_HOST=club9ts.rine.us
-      - LETSENCRYPT_HOST=club9ts.rine.us
 
 volumes:
   nginx_proxy_certs:

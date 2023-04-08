@@ -11,8 +11,14 @@ services:
       context: ./frontend
 
     container_name: 9ts_frontend_prod
-    # ports:
-    #   - ${FRONTEND_PORT}:80
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=club9ts.rine.us
+      - LETSENCRYPT_HOST=club9ts.rine.us
+      - REACT_APP_BACKEND_PORT=${REACT_APP_BACKEND_PORT}
+    links:
+      - backend
     networks:
       - backend-frontend
 
@@ -62,6 +68,7 @@ services:
 networks:
   backend-frontend:
   backend-mongo:
+
 
 volumes:
   mongo_data:

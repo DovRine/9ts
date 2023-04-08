@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import "./Signup.css"
+import { getApiUrl } from "../../lib/getApiUrl";
 
 
 
@@ -27,7 +28,7 @@ export default class Signup extends Component {
         e.preventDefault();
         const { name, email, password } = this.state;
         console.log(name, email, password);
-        fetch("http://backend:5000/signup", {
+        fetch(`${getApiUrl()}/signup`, {
           method: "POST",
           crossDomain: true,
           headers: {
